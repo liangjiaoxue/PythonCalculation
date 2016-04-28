@@ -1,6 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''
+Calculate Gini Correlation Coefficient (GCC). This speeded up version of GCC on rsgcc R Package
+(https://cran.r-project.org/web/packages/rsgcc/index.html). The running speed is improved by
+1) parallelization. and 2) pre-calculation of some statics per gene to avoid repetitive calculation in loops.
+
+numpy, multipleprocessing, pandas modules are imported in this code.
+usage:
+python GiniCorrelationCoefficient.py matrix  output threadnum
+matrix : input matrix file with headline(sample IDs) and row names(gene IDs), each row contains data for each gene.
+output: output file
+threadnum: number of cores to be used
+'''
+
 from sys import argv
 import numpy as np
 import multiprocessing as mp
@@ -14,9 +27,9 @@ thread_num = int(thread_num0)
 with open(matrix_in,"rU") as textFile:
     lines = [line.rstrip().split("\t") for line in textFile]
 
-array = np.array(lines[1:])
+array = np.array(lines[1:]) # remove head line
 gene = array[:,0]
-data = (array[:,2:]).astype(np.float)
+data = (array[:,1:]).astype(np.float) # remove first column
 
 # sort array
 data_sorted = np.apply_along_axis(np.sort,axis=1, arr=data)
@@ -51,7 +64,7 @@ for index in range(thread_num) :
 
 def worker(index_in, list_in):
     range_in = index2range[index_in]
-    print(range_in)
+    #print(range_in)
     array2d =  np.empty((len(range_in),gene_num), float)
     for x_pos in range_in :
         for y_pos in range(gene_num) :
