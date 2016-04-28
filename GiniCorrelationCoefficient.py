@@ -42,6 +42,7 @@ def self_sum (vector ) :
         sum_my += (2*(x_index+1) - len_x -1)* vector[x_index]
     return sum_my
 
+## pre-calculation of sum to avoid repetitive calculation
 data_self_sum =  np.apply_along_axis(self_sum,axis=1, arr= data_sorted)
 
 
