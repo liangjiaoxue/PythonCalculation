@@ -98,7 +98,7 @@ for i in range(thread_num):
     out = np.append(out,array_out, axis=0)
 
 
-# maximum value
+# maximum of GCC values
 for i in range(gene_num) :
     for j in range(i):
         if abs(out[i,j]) < abs(out[j,i]) :
