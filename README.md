@@ -9,8 +9,11 @@ Calculate Gini Correlation Coefficient (GCC). This is one speeded up version in 
 numpy, multipleprocessing, pandas modules are imported in this code.  
 
 usage:  
+```
+module load python/2.7.8
 python GiniCorrelationCoefficient.py    matrix   output    threadnum  
-matrix : input matrix file with headline(sample IDs) and row names(gene IDs), each row contains data for each gene.  
-output: output file  
-threadnum: number of cores to be used  
+```
+matrix :    input matrix file with headline(sample IDs) and row names(gene IDs), each row contains data for each gene.   
+output:     output file  
+threadnum:  number of cores to be used  
 
